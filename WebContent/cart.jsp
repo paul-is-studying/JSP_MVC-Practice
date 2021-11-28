@@ -22,8 +22,8 @@
 		<td><%=dto.getQty()%></td>
 		<td>
 				<form name="f" action="book.do" method="post">
-					<input type="hidden" name="command" value="DEL"> 
-					<input type="hidden" name="idx" value="<%=i%>"> 
+					<input type="hidden" name="command" value="DEL"/>
+					<input type="hidden" name="idx" value="<%=i%>"/>
 					<input type="submit" value="»èÁ¦">
 				</form>
 		</td>

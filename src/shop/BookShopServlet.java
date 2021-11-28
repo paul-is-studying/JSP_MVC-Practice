@@ -25,7 +25,18 @@ public class BookShopServlet extends HttpServlet{
 		List<BookDTO> list = (List)session.getAttribute("cart");
 		String cmd = req.getParameter("command");
 		if (cmd.equals("CHK")) {
-			
+			Hashtable<String, BookDTO> ht = new Hashtable<>();
+			for(BookDTO dto : list) {
+				if (ht.containsKey(dto.getTitle())) {
+					BookDTO dto2 = ht.get(dto.getTitle());
+					dto2.setQty(dto.getQty() + dto2.getQty());
+				}else {
+					ht.put(dto.getTitle(), dto);
+				}
+			}
+			req.setAttribute("result", ht);
+			RequestDispatcher view = req.getRequestDispatcher("result2.jsp");
+			view.forward(req, resp);
 		}else {
 			if (cmd.equals("ADD")) {
 				if (list==null) list = new ArrayList<>();
@@ -59,12 +70,6 @@ public class BookShopServlet extends HttpServlet{
 		dto.setAuthor(scan.next());
 		dto.setPrice(scan.nextInt());
 		dto.setQty(Integer.parseInt(qty));
-		return dto;
-	}
-	
-	public BookDTO getPrice(HttpServletRequest req) {
-		BookDTO dto = new BookDTO();
-		
 		return dto;
 	}
 }
